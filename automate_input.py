@@ -1,27 +1,52 @@
 from pickletools import pyunicode
 import pyautogui
 import time
+import os
 
-print_from_page = 31
-print_to_page = 40
+start_page = int(input("please enter the page you would like to start printing from: "))
+time.sleep(.5)
+num_of_pages_to_print = int(input("Please enter the number of pages to print: "))
+num_of_pages_to_print = num_of_pages_to_print - 1
+time.sleep(.5)
+print("Process Started")
+print_from_page = start_page
+print_to_page = start_page + num_of_pages_to_print
 file_name = f"Book_Pages_{print_from_page}_{print_to_page}"
 
-#TODO: create function to run process
-#TODO: Iterate print_from_page by 10 & print_to_page 10
+#TODO: Check and see if folder exist, if it doesn't create one to save pages there. 
+book_folder = 'book_folder\\' #! Folder you want to store your images... for the relative path.
+
+# file_path = r'C:\Users\mjsek\Pictures\Screenshots\screenshot_'+str(file_number)+'.png' #? Creates the file path. Passing through the file_number allows it to be iterated for each screenshot doesn't overwrite eachother.  
+#! This is fine for now, but may want to make a relative file path in the future. 
+
+#? Below Create Relative file_path --> just created the relative_file path anyways. 
+dirname = os.path.dirname(__file__)
+book_file_name = os.path.join(dirname, book_folder)
+check_directory = os.path.exists(book_file_name) #! Checks if directory exists. If yes = True, else False.
+
+if check_directory == False: #! Create the directory if it does not exist.
+    os.makedirs(book_file_name)
+    print("Created: " + book_file_name)
+    time.sleep(.1)
+else:
+    print("This directory exists: " + book_file_name)
+
+#? ^^^ End of creating a relative file_path.
 #TODO: Create while loop that runs until pages numbers are done. 
 
 def RUN_PRINT():
     global print_from_page
     global print_to_page
+    global num_of_pages_to_print
     file_name = f"Book_Pages_{print_from_page}_{print_to_page}"
     # print(pyautogui.size()) #1920 x 1080
     #! Move to 3 dots and click for dropdown menu.
-    pyautogui.moveTo(1875, 120, .01) #Moves mouse to absolute position  on screen. moveTo(Pixels Left to Right, Pixels Top to Bottom, Speed)
+    pyautogui.moveTo(1875, 120, .1) #Moves mouse to absolute position  on screen. moveTo(Pixels Left to Right, Pixels Top to Bottom, Speed)
     # pyautogui.moveTo(1875, 215, .3)
     pyautogui.click()
 
     #! Click to pull up print dialogue
-    pyautogui.moveRel(0,95,.1) #moves mouse relative to last position.
+    pyautogui.moveRel(0,95,.5) #moves mouse relative to last position.
     pyautogui.click()
 
     #! Move to print # of pages dialogue
@@ -39,9 +64,7 @@ def RUN_PRINT():
     pyautogui.hotkey('del')
     pyautogui.typewrite(f'{print_to_page}')#! Need incrementing var here
 
-
-
-    pyautogui.moveTo(1125, 600, .1)
+    pyautogui.moveTo(1125, 580, .1)
     time.sleep(.3)
     pyautogui.click()
     time.sleep(15) #? Wait for print job to generate
@@ -53,24 +76,34 @@ def RUN_PRINT():
 
 
     #! Click print/save on actual print dialog.
-    pyautogui.moveTo(1474, 898, .3)
+    pyautogui.moveTo(1474, 900, .3)
     pyautogui.click()
     time.sleep(1)
 
+    #TODO: Change save location to "book_folder" above
+    pyautogui.moveTo(608, 65, .3)
+    pyautogui.click()
+    time.sleep(.1)
+    pyautogui.click()
+    pyautogui.hotkey('ctrlleft', 'a')
+    pyautogui.hotkey('del')
+    pyautogui.typewrite(book_file_name)
+    pyautogui.hotkey('enter')
+    
     #! Click the Save Location
-    pyautogui.moveTo(410, 424, .3)
+    pyautogui.moveTo(410, 444, .3)
     pyautogui.click()
     time.sleep(.1)
     pyautogui.click()
     pyautogui.hotkey('ctrlleft', 'a')
     pyautogui.hotkey('del')
     pyautogui.typewrite(file_name)
-    pyautogui.moveTo(789, 492, .3)
+    pyautogui.moveTo(789, 510, .3)
     pyautogui.click()
     time.sleep(1)
-    print_from_page = print_from_page + 10
-    print_to_page = print_to_page + 10
-    time.sleep(2)
+    print_from_page = print_from_page + num_of_pages_to_print
+    print_to_page = print_to_page + num_of_pages_to_print
+    time.sleep(1)
     RUN_PRINT()
 
 RUN_PRINT()
