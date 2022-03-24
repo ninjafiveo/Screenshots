@@ -41,7 +41,7 @@ def RUN_PRINT():
     file_name = f"Book_Pages_{print_from_page}_{print_to_page}"
     # print(pyautogui.size()) #1920 x 1080
     #! Move to 3 dots and click for dropdown menu.
-    pyautogui.moveTo(1875, 120, .1) #Moves mouse to absolute position  on screen. moveTo(Pixels Left to Right, Pixels Top to Bottom, Speed)
+    pyautogui.moveTo(1875, 120, .3) #Moves mouse to absolute position  on screen. moveTo(Pixels Left to Right, Pixels Top to Bottom, Speed)
     # pyautogui.moveTo(1875, 215, .3)
     pyautogui.click()
 
@@ -51,7 +51,7 @@ def RUN_PRINT():
 
     #! Move to print # of pages dialogue
     #? Print from Box
-    pyautogui.moveTo(821, 595, .1)
+    pyautogui.moveTo(821, 595, 1)
     pyautogui.click()
     pyautogui.hotkey('ctrlleft', 'a')
     pyautogui.hotkey('del')

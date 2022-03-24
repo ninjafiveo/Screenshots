@@ -9,7 +9,7 @@ with sr.Microphone() as source:
     print('Speak Anything : ')
     audio = r.listen(source)
     
-    text = r.recognize_google(audio)
+    text = r.recognize_google(audio)        
     print('You said: {}'.format(text))
     try:
         text = r.recognize_google(audio)

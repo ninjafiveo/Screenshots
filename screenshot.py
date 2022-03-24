@@ -61,4 +61,4 @@ def save_file():
 while(True):
     save_file() 
     print(f"Screenshot Saved {file_number}.png")
-    time.sleep(20) #? Sleeps for 'x' seconds before running again. i.e. takes a screenshot every 10 seconds. 
+    time.sleep(10) #? Sleeps for 'x' seconds before running again. i.e. takes a screenshot every 10 seconds. 
